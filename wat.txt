@@ -1,1 +1,2 @@
 asd;fklj;kj
+stackoverflow.com/questions/201311271/hotlink-resources-like-javacript-files-directly-from-github
