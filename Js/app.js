@@ -5,7 +5,7 @@
 enchant();
 
 var game = new Core(630, 360); // game stage
-    game.preload('./content/chara1.png', './content/testBkg.png', './content/kiTest6.png', './content/Block.png', './content/redStar.png', './content/yellowStar.png', './content/greenStar.png', './content/blackStar.png' ); // preload image
+    game.preload('https://raw.github.com/mrjones91/The-Race/gh-pages/content/chara1.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/testBkg.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/kiTest6.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/Block.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/redStar.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/yellowStar.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/greenStar.png', 'https://raw.github.com/mrjones91/The-Race/gh-pages/content/blackStar.png' ); // preload image
     game.fps = 30;
     game.onload = function(){
         game.keybind(66, 'b');
@@ -26,7 +26,7 @@ var game = new Core(630, 360); // game stage
 
         //Create Background
         var background = new Sprite(630, 360);
-        background.image = game.assets['./content/testBkg.png'];
+        background.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/testBkg.png'];
         game.rootScene.addChild(background);
         var sizeX = 0;
         var sizeY = 0;
@@ -38,19 +38,19 @@ var game = new Core(630, 360); // game stage
                 switch (type)
                 {
                     case 0:
-                        this.image = game.assets['./content/redStar.png'];
+                        this.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/redStar.png'];
                         this.x = this.y = 0;
                     break;
                     case 1:
-                        this.image = game.assets['./content/yellowStar.png']; 
+                        this.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/yellowStar.png']; 
                         this.x = this.y = 50;
                     break;
                     case 2:
-                        this.image = game.assets['./content/greenStar.png']; 
+                        this.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/greenStar.png']; 
                         this.x = this.y = 100;
                     break;
                     case 3:
-                        this.image = game.assets['./content/blackStar.png']; 
+                        this.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/blackStar.png']; 
                         this.x = this.y = 150;
                     break;
                     default:
@@ -94,7 +94,7 @@ var game = new Core(630, 360); // game stage
 
         //Create Player
         var plyr = new Sprite(74, 99);
-        plyr.image = game.assets['./content/kiTest6.png'];
+        plyr.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/kiTest6.png'];
         plyr.frame = [1, 1 , 0, 0, 0, 0, 1, 1];
         plyr.x = 75;
         plyr.y = 200;
@@ -166,7 +166,7 @@ var game = new Core(630, 360); // game stage
                 lastWidth = this.width;
                 lastX = this.x;
 
-                this.image = game.assets['./content/Block.png'];
+                this.image = game.assets['https://raw.github.com/mrjones91/The-Race/gh-pages/content/Block.png'];
                 this.addEventListener(Event.ENTER_FRAME, this.die);
                 this.addEventListener(Event.ENTER_FRAME, this.move);
                 /*this.bonus = new Bonus(Math.floor(Math.random() * 4));
