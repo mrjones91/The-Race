@@ -30,40 +30,6 @@ var game = new Core(630, 360); // game stage
         game.rootScene.addChild(background);
         var sizeX = 0;
         var sizeY = 0;
-
-        //Bonus/Obstacles
-        Bonus = Class.create(Sprite, {
-            initialize: function(type){
-                enchant.Sprite.call(this, 50, 50);
-                switch (type)
-                {
-                    case 0:
-                        this.image = game.assets['./content/redStar.png'];
-                        this.x = this.y = 0;
-                    break;
-                    case 1:
-                        this.image = game.assets['./content/yellowStar.png']; 
-                        this.x = this.y = 50;
-                    break;
-                    case 2:
-                        this.image = game.assets['./content/greenStar.png']; 
-                        this.x = this.y = 100;
-                    break;
-                    case 3:
-                        this.image = game.assets['./content/blackStar.png']; 
-                        this.x = this.y = 150;
-                    break;
-                    default:
-                    break;
-                }
-
-                this.addEventListener(Event.ENTER_FRAME, this.move);
-            },
-            move: function(){
-                this.x -= 5;
-
-            }
-        });
 /*
         var redStar = new Sprite(50, 50);
         redStar.image = game.assets['./content/redStar.png']; 
@@ -90,7 +56,7 @@ var game = new Core(630, 360); // game stage
         bonuses[3] = blackStar;
 */
         var bonuses = [4];
-        alert('bonus ' + bonuses.length);
+        //alert('bonus ' + bonuses.length);
 
         //Create Player
         var plyr = new Sprite(74, 99);
@@ -131,14 +97,11 @@ var game = new Core(630, 360); // game stage
                     enchant.Sprite.call(this, 1500, 198);
                     if (lastDead.id == -1)
                     {
-                        alert(lastDead.id);
                         this.x = 30;
                         nextBlock = 50;
                     }
                     else
                     {
-                        alert(fNum);
-                        alert(floors[fNum]);
                         this.x = (floors[fNum].x + floors[fNum].width) + 100;//+ Math.floor(Math.random() * 150);
                         if ((floors[fNum].x + floors[fNum].width) + 100 < 630)
                             this.x = 630;
@@ -200,12 +163,65 @@ var game = new Core(630, 360); // game stage
             }
         });
 
+        //Bonus/Obstacles
+        Bonus = Class.create(Sprite, {
+            initialize: function(parentFloor, type){
+                enchant.Sprite.call(this, 50, 50);
+                this.x = parentFloor.x + parentFloor.width * .75;
+                this.y = parentFloor.y - 75;
+                this.baseY = this.y;
+                this.Up = true;
+                this.bottom
+                switch (type)
+                {
+                    case 0:
+                        this.image = game.assets['./content/redStar.png'];
+                    break;
+                    case 1:
+                        this.image = game.assets['./content/yellowStar.png']; 
+                    break;
+                    case 2:
+                        this.image = game.assets['./content/greenStar.png']; 
+                    break;
+                    case 3:
+                        this.image = game.assets['./content/blackStar.png']; 
+                    break;
+                    case 4:
+                        this.image = game.assets[''];
+                    break;
+                    default:
+                    break;
+                }
+
+                this.addEventListener(Event.ENTER_FRAME, this.move);
+            },
+            move: function(direction){
+                this.x -= 5;
+                switch (direction)
+                {
+                    case 0:
+                        if (this.y < this.baseY - 50)
+                            this.Up = !this.Up;
+                        if (this.Up)
+                            this.y--;
+                        else
+                            this.y++;
+                    break;
+                    default:
+                    break;
+                }
+
+            }
+        });
+
         var addFloors = function(idkfloor) {
             fNum++;
             if (fNum > 4)
                 fNum = 0;
             idkfloor.id = fNum;
             //
+            var bonus = new Bonus(idkfloor, ((Math.floor(Math.random() * 5))));
+            bonuses[fNum] = bonus;
             floors[fNum] = idkfloor;
             nextBlockCounter = 0;
             lastBlock = 0;
@@ -217,11 +233,11 @@ var game = new Core(630, 360); // game stage
         var levelStart = function() {
             console.log("LONG floor #" + fNum + " added!");
             var floor1 = new Floor(0, 0);
-            var bonus = new Bonus(Math.floor(Math.random() * 4));
+            
             //catchBad(floor1, )
             addFloors(floor1);
             game.rootScene.addChild(floors[fNum]);
-            game.rootScene.addChild(bonus);
+            game.rootScene.addChild(bonuses[fNum]);
             console.log(floor1.bonus);
 
             console.log(floors[fNum]);
@@ -233,7 +249,7 @@ var game = new Core(630, 360); // game stage
             //console.log(fNum);
             addFloors(addedFloor);   
             game.rootScene.addChild(floors[fNum]);
-
+            game.rootScene.addChild(bonuses[fNum]);
             console.log(floors[fNum]);
         }
 
@@ -362,6 +378,7 @@ var game = new Core(630, 360); // game stage
             }
 
         });
+
     };
 
     game.start();
